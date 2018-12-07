@@ -13,30 +13,24 @@
 $this->setFrameMode(true);
 ?>
 <div>
-    <section id="themo_service_block_1" class=" service-blocks-horiz light-text">
+    <section id="themo_testimonials_1" class=" testimonials light-text">
         <div class="container">
             <div class="row">
-                <div class="section-header col-xs-12 centered">
-                    <h2><? echo CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "NAME"); ?></h2>
-                </div>
-            </div>
-            <div class="service-blocks">
                 <? foreach ($arResult["ITEMS"] as $key => $arItem): ?>
-                    <div class="service-block service-block-0 circle-block row  hide-animation slideUp">
-                        <div class="col-xs-12">
-                            <div class="circle-med-icon">
-                                <?=htmlspecialchars_decode($arItem["PROPERTIES"]["ICON"]["VALUE"]) ?>
-                            </div>
-                            <div class="service-block-text">
-                                <h3><?= $arItem["NAME"] ?></h3>
-                                <p><?= $arItem["PREVIEW_TEXT"] ?></p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-md-4">
+                    <figure class="quote">
+                        <blockquote class="blockquote-1 hide-animation"><?=$arItem["NAME"]?></blockquote>
+                        <img width="60" height="60"
+                             src="<?=$arItem["PREVIEW_PICTURE"]["SRC"]?>"
+                             class="circle circle-1 hide-animation wp-post-image">
+                        <figcaption class="figcaption-1 hide-animation"><?=$arItem["PREVIEW_TEXT"]?></figcaption>
+                    </figure>
+                </div>
                 <? endforeach; ?>
-            </div>
+               </div>
         </div>
     </section>
 </div>
+<div class="meta-border content-width"></div>
 
 

@@ -1,160 +1,294 @@
 <?
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("Интернет-магазин \"Одежда\"");
+require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
+$APPLICATION->SetTitle("Elari - Умные устройства для умных людей");
 ?>
-<?if (IsModuleInstalled("advertising")):?>
-<?$APPLICATION->IncludeComponent(
-	"bitrix:advertising.banner",
-	"bootstrap",
-	array(
-		"COMPONENT_TEMPLATE" => "bootstrap",
-		"TYPE" => "MAIN",
-		"NOINDEX" => "Y",
-		"QUANTITY" => "3",
-		"BS_EFFECT" => "fade",
-		"BS_CYCLING" => "N",
-		"BS_WRAP" => "Y",
-		"BS_PAUSE" => "Y",
-		"BS_KEYBOARD" => "Y",
-		"BS_ARROW_NAV" => "Y",
-		"BS_BULLET_NAV" => "Y",
-		"BS_HIDE_FOR_TABLETS" => "N",
-		"BS_HIDE_FOR_PHONES" => "Y",
-		"CACHE_TYPE" => "A",
-		"CACHE_TIME" => "36000000",
-	),
-	false
-);?>
-<?endif?>
 
-<?
-global $trendFilter;
-$trendFilter = array('PROPERTY_TREND' => '4');
-?>
-<h2>Тренды сезона</h2>
-<?$APPLICATION->IncludeComponent(
-	"bitrix:catalog.section",
-	".default",
-	array(
-		"IBLOCK_TYPE_ID" => "catalog",
-		"IBLOCK_ID" => "2",
-		"BASKET_URL" => "/personal/cart/",
-		"COMPONENT_TEMPLATE" => "",
-		"IBLOCK_TYPE" => "catalog",
-		"SECTION_ID" => $_REQUEST["SECTION_ID"],
-		"SECTION_CODE" => "",
-		"SECTION_USER_FIELDS" => array(
-			0 => "",
-			1 => "",
-		),
-		"ELEMENT_SORT_FIELD" => "sort",
-		"ELEMENT_SORT_ORDER" => "desc",
-		"ELEMENT_SORT_FIELD2" => "id",
-		"ELEMENT_SORT_ORDER2" => "desc",
-		"FILTER_NAME" => "trendFilter",
-		"INCLUDE_SUBSECTIONS" => "Y",
-		"SHOW_ALL_WO_SECTION" => "Y",
-		"HIDE_NOT_AVAILABLE" => "N",
-		"PAGE_ELEMENT_COUNT" => "12",
-		"LINE_ELEMENT_COUNT" => "3",
-		"PROPERTY_CODE" => array(
-			0 => "NEWPRODUCT",
-			1 => "",
-		),
-		"OFFERS_FIELD_CODE" => array(
-			0 => "",
-			1 => "",
-		),
-		"OFFERS_PROPERTY_CODE" => array(
-			0 => "COLOR_REF",
-			1 => "SIZES_SHOES",
-			2 => "SIZES_CLOTHES",
-			3 => "",
-		),
-		"OFFERS_SORT_FIELD" => "sort",
-		"OFFERS_SORT_ORDER" => "desc",
-		"OFFERS_SORT_FIELD2" => "id",
-		"OFFERS_SORT_ORDER2" => "desc",
-		"TEMPLATE_THEME" => "site",
-		"PRODUCT_DISPLAY_MODE" => "Y",
-		"ADD_PICT_PROP" => "MORE_PHOTO",
-		"LABEL_PROP" => array(
-			0 => "NEWPRODUCT"
-		),
-		"OFFER_ADD_PICT_PROP" => "-",
-		"OFFER_TREE_PROPS" => array(
-			0 => "COLOR_REF",
-			1 => "SIZES_SHOES",
-			2 => "SIZES_CLOTHES",
-		),
-		"PRODUCT_SUBSCRIPTION" => "N",
-		"SHOW_DISCOUNT_PERCENT" => "N",
-		"SHOW_OLD_PRICE" => "Y",
-		"SHOW_CLOSE_POPUP" => "N",
-		"MESS_BTN_BUY" => "Купить",
-		"MESS_BTN_ADD_TO_BASKET" => "В корзину",
-		"MESS_BTN_SUBSCRIBE" => "Подписаться",
-		"MESS_BTN_DETAIL" => "Подробнее",
-		"MESS_NOT_AVAILABLE" => "Нет в наличии",
-		"SECTION_URL" => "",
-		"DETAIL_URL" => "",
-		"SECTION_ID_VARIABLE" => "SECTION_ID",
-		"SEF_MODE" => "N",
-		"AJAX_MODE" => "N",
-		"AJAX_OPTION_JUMP" => "N",
-		"AJAX_OPTION_STYLE" => "Y",
-		"AJAX_OPTION_HISTORY" => "N",
-		"AJAX_OPTION_ADDITIONAL" => "",
-		"CACHE_TYPE" => "A",
-		"CACHE_TIME" => "36000000",
-		"CACHE_GROUPS" => "Y",
-		"SET_TITLE" => "Y",
-		"SET_BROWSER_TITLE" => "Y",
-		"BROWSER_TITLE" => "-",
-		"SET_META_KEYWORDS" => "Y",
-		"META_KEYWORDS" => "-",
-		"SET_META_DESCRIPTION" => "Y",
-		"META_DESCRIPTION" => "-",
-		"SET_LAST_MODIFIED" => "N",
-		"USE_MAIN_ELEMENT_SECTION" => "N",
-		"ADD_SECTIONS_CHAIN" => "N",
-		"CACHE_FILTER" => "N",
-		"ACTION_VARIABLE" => "action",
-		"PRODUCT_ID_VARIABLE" => "id",
-		"PRICE_CODE" => array(
-			0 => "BASE",
-		),
-		"USE_PRICE_COUNT" => "N",
-		"SHOW_PRICE_COUNT" => "1",
-		"PRICE_VAT_INCLUDE" => "Y",
-		"CONVERT_CURRENCY" => "N",
-		"USE_PRODUCT_QUANTITY" => "N",
-		"PRODUCT_QUANTITY_VARIABLE" => "",
-		"ADD_PROPERTIES_TO_BASKET" => "Y",
-		"PRODUCT_PROPS_VARIABLE" => "prop",
-		"PARTIAL_PRODUCT_PROPERTIES" => "N",
-		"PRODUCT_PROPERTIES" => array(
-		),
-		"OFFERS_CART_PROPERTIES" => array(
-			0 => "COLOR_REF",
-			1 => "SIZES_SHOES",
-			2 => "SIZES_CLOTHES",
-		),
-		"ADD_TO_BASKET_ACTION" => "ADD",
-		"PAGER_TEMPLATE" => "round",
-		"DISPLAY_TOP_PAGER" => "N",
-		"DISPLAY_BOTTOM_PAGER" => "Y",
-		"PAGER_TITLE" => "Товары",
-		"PAGER_SHOW_ALWAYS" => "N",
-		"PAGER_DESC_NUMBERING" => "N",
-		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
-		"PAGER_SHOW_ALL" => "N",
-		"PAGER_BASE_LINK_ENABLE" => "N",
-		"SET_STATUS_404" => "N",
-		"SHOW_404" => "N",
-		"MESSAGE_404" => "",
-		"COMPATIBLE_MODE" => "N",
-	),
-	false
-);?>
-<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+    <div class="wrap" role="document">
+        <div class="content">
+            <div class="inner-container">
+                <? $APPLICATION->IncludeComponent("bitrix:news.list", "mainSlider", Array(
+                    "ACTIVE_DATE_FORMAT" => "d.m.Y",    // Формат показа даты
+                    "ADD_SECTIONS_CHAIN" => "N",    // Включать раздел в цепочку навигации
+                    "AJAX_MODE" => "N",    // Включить режим AJAX
+                    "AJAX_OPTION_ADDITIONAL" => "",    // Дополнительный идентификатор
+                    "AJAX_OPTION_HISTORY" => "N",    // Включить эмуляцию навигации браузера
+                    "AJAX_OPTION_JUMP" => "N",    // Включить прокрутку к началу компонента
+                    "AJAX_OPTION_STYLE" => "Y",    // Включить подгрузку стилей
+                    "CACHE_FILTER" => "N",    // Кешировать при установленном фильтре
+                    "CACHE_GROUPS" => "Y",    // Учитывать права доступа
+                    "CACHE_TIME" => "36000000",    // Время кеширования (сек.)
+                    "CACHE_TYPE" => "A",    // Тип кеширования
+                    "CHECK_DATES" => "Y",    // Показывать только активные на данный момент элементы
+                    "DETAIL_URL" => "",    // URL страницы детального просмотра (по умолчанию - из настроек инфоблока)
+                    "DISPLAY_BOTTOM_PAGER" => "Y",    // Выводить под списком
+                    "DISPLAY_DATE" => "Y",    // Выводить дату элемента
+                    "DISPLAY_NAME" => "Y",    // Выводить название элемента
+                    "DISPLAY_PICTURE" => "Y",    // Выводить изображение для анонса
+                    "DISPLAY_PREVIEW_TEXT" => "Y",    // Выводить текст анонса
+                    "DISPLAY_TOP_PAGER" => "N",    // Выводить над списком
+                    "FIELD_CODE" => array(    // Поля
+                        0 => "NAME",
+                        1 => "PREVIEW_PICTURE",
+                        2 => "",
+                    ),
+                    "FILTER_NAME" => "",    // Фильтр
+                    "HIDE_LINK_WHEN_NO_DETAIL" => "N",    // Скрывать ссылку, если нет детального описания
+                    "IBLOCK_ID" => "4",    // Код информационного блока
+                    "IBLOCK_TYPE" => "content",    // Тип информационного блока (используется только для проверки)
+                    "INCLUDE_IBLOCK_INTO_CHAIN" => "N",    // Включать инфоблок в цепочку навигации
+                    "INCLUDE_SUBSECTIONS" => "Y",    // Показывать элементы подразделов раздела
+                    "MESSAGE_404" => "",    // Сообщение для показа (по умолчанию из компонента)
+                    "NEWS_COUNT" => "20",    // Количество новостей на странице
+                    "PAGER_BASE_LINK_ENABLE" => "N",    // Включить обработку ссылок
+                    "PAGER_DESC_NUMBERING" => "N",    // Использовать обратную навигацию
+                    "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",    // Время кеширования страниц для обратной навигации
+                    "PAGER_SHOW_ALL" => "N",    // Показывать ссылку "Все"
+                    "PAGER_SHOW_ALWAYS" => "N",    // Выводить всегда
+                    "PAGER_TEMPLATE" => ".default",    // Шаблон постраничной навигации
+                    "PAGER_TITLE" => "Новости",    // Название категорий
+                    "PARENT_SECTION" => "",    // ID раздела
+                    "PARENT_SECTION_CODE" => "",    // Код раздела
+                    "PREVIEW_TRUNCATE_LEN" => "",    // Максимальная длина анонса для вывода (только для типа текст)
+                    "PROPERTY_CODE" => array(    // Свойства
+                        0 => "",
+                        1 => "",
+                    ),
+                    "SET_BROWSER_TITLE" => "N",    // Устанавливать заголовок окна браузера
+                    "SET_LAST_MODIFIED" => "N",    // Устанавливать в заголовках ответа время модификации страницы
+                    "SET_META_DESCRIPTION" => "N",    // Устанавливать описание страницы
+                    "SET_META_KEYWORDS" => "N",    // Устанавливать ключевые слова страницы
+                    "SET_STATUS_404" => "N",    // Устанавливать статус 404
+                    "SET_TITLE" => "N",    // Устанавливать заголовок страницы
+                    "SHOW_404" => "N",    // Показ специальной страницы
+                    "SORT_BY1" => "ID",    // Поле для первой сортировки новостей
+                    "SORT_BY2" => "SORT",    // Поле для второй сортировки новостей
+                    "SORT_ORDER1" => "SSC",    // Направление для первой сортировки новостей
+                    "SORT_ORDER2" => "ASC",    // Направление для второй сортировки новостей
+                    "STRICT_SECTION_CHECK" => "N",    // Строгая проверка раздела для показа списка
+                ),
+                    false
+                ); ?>
+
+                <? $APPLICATION->IncludeComponent("bitrix:news.list", "mainElari", Array(
+                    "ACTIVE_DATE_FORMAT" => "d.m.Y",    // Формат показа даты
+                    "ADD_SECTIONS_CHAIN" => "N",    // Включать раздел в цепочку навигации
+                    "AJAX_MODE" => "N",    // Включить режим AJAX
+                    "AJAX_OPTION_ADDITIONAL" => "",    // Дополнительный идентификатор
+                    "AJAX_OPTION_HISTORY" => "N",    // Включить эмуляцию навигации браузера
+                    "AJAX_OPTION_JUMP" => "N",    // Включить прокрутку к началу компонента
+                    "AJAX_OPTION_STYLE" => "Y",    // Включить подгрузку стилей
+                    "CACHE_FILTER" => "N",    // Кешировать при установленном фильтре
+                    "CACHE_GROUPS" => "Y",    // Учитывать права доступа
+                    "CACHE_TIME" => "36000000",    // Время кеширования (сек.)
+                    "CACHE_TYPE" => "A",    // Тип кеширования
+                    "CHECK_DATES" => "Y",    // Показывать только активные на данный момент элементы
+                    "DETAIL_URL" => "",    // URL страницы детального просмотра (по умолчанию - из настроек инфоблока)
+                    "DISPLAY_BOTTOM_PAGER" => "Y",    // Выводить под списком
+                    "DISPLAY_DATE" => "Y",    // Выводить дату элемента
+                    "DISPLAY_NAME" => "Y",    // Выводить название элемента
+                    "DISPLAY_PICTURE" => "Y",    // Выводить изображение для анонса
+                    "DISPLAY_PREVIEW_TEXT" => "Y",    // Выводить текст анонса
+                    "DISPLAY_TOP_PAGER" => "N",    // Выводить над списком
+                    "FIELD_CODE" => array(    // Поля
+                        0 => "NAME",
+                        1 => ""
+                    ),
+                    "FILTER_NAME" => "",    // Фильтр
+                    "HIDE_LINK_WHEN_NO_DETAIL" => "N",    // Скрывать ссылку, если нет детального описания
+                    "IBLOCK_ID" => "5",    // Код информационного блока
+                    "IBLOCK_TYPE" => "content",    // Тип информационного блока (используется только для проверки)
+                    "INCLUDE_IBLOCK_INTO_CHAIN" => "N",    // Включать инфоблок в цепочку навигации
+                    "INCLUDE_SUBSECTIONS" => "Y",    // Показывать элементы подразделов раздела
+                    "MESSAGE_404" => "",    // Сообщение для показа (по умолчанию из компонента)
+                    "NEWS_COUNT" => "20",    // Количество новостей на странице
+                    "PAGER_BASE_LINK_ENABLE" => "N",    // Включить обработку ссылок
+                    "PAGER_DESC_NUMBERING" => "N",    // Использовать обратную навигацию
+                    "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",    // Время кеширования страниц для обратной навигации
+                    "PAGER_SHOW_ALL" => "N",    // Показывать ссылку "Все"
+                    "PAGER_SHOW_ALWAYS" => "N",    // Выводить всегда
+                    "PAGER_TEMPLATE" => ".default",    // Шаблон постраничной навигации
+                    "PAGER_TITLE" => "Новости",    // Название категорий
+                    "PARENT_SECTION" => "",    // ID раздела
+                    "PARENT_SECTION_CODE" => "",    // Код раздела
+                    "PREVIEW_TRUNCATE_LEN" => "",    // Максимальная длина анонса для вывода (только для типа текст)
+                    "PROPERTY_CODE" => array(    // Свойства
+                        0 => "ICON",
+                        1 => "",
+                    ),
+                    "SET_BROWSER_TITLE" => "N",    // Устанавливать заголовок окна браузера
+                    "SET_LAST_MODIFIED" => "N",    // Устанавливать в заголовках ответа время модификации страницы
+                    "SET_META_DESCRIPTION" => "N",    // Устанавливать описание страницы
+                    "SET_META_KEYWORDS" => "N",    // Устанавливать ключевые слова страницы
+                    "SET_STATUS_404" => "N",    // Устанавливать статус 404
+                    "SET_TITLE" => "N",    // Устанавливать заголовок страницы
+                    "SHOW_404" => "N",    // Показ специальной страницы
+                    "SORT_BY1" => "ID",    // Поле для первой сортировки новостей
+                    "SORT_BY2" => "SORT",    // Поле для второй сортировки новостей
+                    "SORT_ORDER1" => "ASC",    // Направление для первой сортировки новостей
+                    "SORT_ORDER2" => "ASC",    // Направление для второй сортировки новостей
+                    "STRICT_SECTION_CHECK" => "N",    // Строгая проверка раздела для показа списка
+                ),
+                    false
+                ); ?>
+
+                <? $APPLICATION->IncludeComponent(
+                    "bitrix:news.list",
+                    "mainAdvantage",
+                    array(
+                        "ACTIVE_DATE_FORMAT" => "d.m.Y",
+                        "ADD_SECTIONS_CHAIN" => "N",
+                        "AJAX_MODE" => "N",
+                        "AJAX_OPTION_ADDITIONAL" => "",
+                        "AJAX_OPTION_HISTORY" => "N",
+                        "AJAX_OPTION_JUMP" => "N",
+                        "AJAX_OPTION_STYLE" => "Y",
+                        "CACHE_FILTER" => "N",
+                        "CACHE_GROUPS" => "Y",
+                        "CACHE_TIME" => "36000000",
+                        "CACHE_TYPE" => "A",
+                        "CHECK_DATES" => "Y",
+                        "DETAIL_URL" => "",
+                        "DISPLAY_BOTTOM_PAGER" => "Y",
+                        "DISPLAY_DATE" => "Y",
+                        "DISPLAY_NAME" => "Y",
+                        "DISPLAY_PICTURE" => "Y",
+                        "DISPLAY_PREVIEW_TEXT" => "Y",
+                        "DISPLAY_TOP_PAGER" => "N",
+                        "FIELD_CODE" => array(
+                            0 => "NAME",
+                            1 => "PREVIEW_TEXT",
+                            2 => "PREVIEW_PICTURE",
+                            3 => "",
+                        ),
+                        "FILTER_NAME" => "",
+                        "HIDE_LINK_WHEN_NO_DETAIL" => "N",
+                        "IBLOCK_ID" => "6",
+                        "IBLOCK_TYPE" => "content",
+                        "INCLUDE_IBLOCK_INTO_CHAIN" => "N",
+                        "INCLUDE_SUBSECTIONS" => "Y",
+                        "MESSAGE_404" => "",
+                        "NEWS_COUNT" => "20",
+                        "PAGER_BASE_LINK_ENABLE" => "N",
+                        "PAGER_DESC_NUMBERING" => "N",
+                        "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+                        "PAGER_SHOW_ALL" => "N",
+                        "PAGER_SHOW_ALWAYS" => "N",
+                        "PAGER_TEMPLATE" => ".default",
+                        "PAGER_TITLE" => "Новости",
+                        "PARENT_SECTION" => "",
+                        "PARENT_SECTION_CODE" => "",
+                        "PREVIEW_TRUNCATE_LEN" => "",
+                        "PROPERTY_CODE" => array(
+                            0 => "",
+                            1 => "",
+                        ),
+                        "SET_BROWSER_TITLE" => "N",
+                        "SET_LAST_MODIFIED" => "N",
+                        "SET_META_DESCRIPTION" => "N",
+                        "SET_META_KEYWORDS" => "N",
+                        "SET_STATUS_404" => "N",
+                        "SET_TITLE" => "N",
+                        "SHOW_404" => "N",
+                        "SORT_BY1" => "ID",
+                        "SORT_BY2" => "SORT",
+                        "SORT_ORDER1" => "ASC",
+                        "SORT_ORDER2" => "ASC",
+                        "STRICT_SECTION_CHECK" => "N",
+                        "COMPONENT_TEMPLATE" => "mainAdvantage"
+                    ),
+                    false
+                ); ?>
+
+                <div>
+                    <section id="themo_conversion_form_1" class=" conversion-form ">
+                        <div class='container'>
+                            <div class="row">
+                                <div class="section-header col-xs-12 centered">
+                                    <h2>Оставайтесь информационно подкованными!</h2>
+                                    <p>Подписывайтесь на нашу рассылку и первыми получайте специальные предложения,
+                                        акции и распродажи!</p>
+                                </div><!-- /.section-header -->
+                            </div><!-- /.row -->
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="simple-conversion">
+                                        <div class="frm_forms  with_frm_style frm_style_formidable-style"
+                                             id="frm_form_3_container">
+                                            <form enctype="multipart/form-data" method="post" class="frm-show-form "
+                                                  id="form_2ssykv">
+                                                <div class="frm_form_fields ">
+                                                    <fieldset>
+
+                                                        <input type="hidden" name="frm_action" value="create"/>
+                                                        <input type="hidden" name="form_id" value="3"/>
+                                                        <input type="hidden" name="frm_hide_fields_3"
+                                                               id="frm_hide_fields_3" value=""/>
+                                                        <input type="hidden" name="form_key" value="2ssykv"/>
+                                                        <input type="hidden" name="item_meta[0]" value=""/>
+                                                        <input type="hidden" id="frm_submit_entry_3"
+                                                               name="frm_submit_entry_3" value="f5184417ea"/><input
+                                                            type="hidden" name="_wp_http_referer" value="/"/>
+                                                        <div id="frm_field_16_container"
+                                                             class="frm_form_field form-field  frm_none_container">
+                                                            <label for="field_qy05f8" class="frm_primary_label">Name
+                                                                <span class="frm_required"></span>
+                                                            </label>
+                                                            <input type="text" id="field_qy05f8" name="item_meta[16]"
+                                                                   value="" placeholder="Имя"/>
+
+
+                                                        </div>
+                                                        <div id="frm_field_17_container"
+                                                             class="frm_form_field form-field  frm_required_field frm_none_container">
+                                                            <label for="field_3asv29" class="frm_primary_label">Email
+                                                                Address
+                                                                <span class="frm_required">*</span>
+                                                            </label>
+                                                            <input type="text" id="field_3asv29" name="item_meta[17]"
+                                                                   value="" placeholder="Email"
+                                                                   data-reqmsg="This field cannot be blank."/>
+
+
+                                                        </div>
+                                                        <div id="frm_field_18_container"
+                                                             class="frm_form_field form-field  frm_none_container">
+                                                            <label for="field_2ywico" class="frm_primary_label">Company
+                                                                Name
+                                                                <span class="frm_required"></span>
+                                                            </label>
+                                                            <input type="text" id="field_2ywico" name="item_meta[18]"
+                                                                   value="" placeholder="Название компании"/>
+
+
+                                                        </div>
+                                                        <input type="hidden" name="item_key" value=""/>
+                                                        <div class="frm_submit">
+
+                                                            <input type="submit" value="Отправить"/>
+                                                            <img class="frm_ajax_loading"
+                                                                 src="http://elari.ua/wp-content/plugins/formidable/images/ajax_loader.gif"
+                                                                 alt="Sending" style="visibility:hidden;"/>
+
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- /.container --></section>
+                </div>
+                <? $APPLICATION->IncludeComponent(
+                    "bitrix:main.include",
+                    "",
+                    Array(
+                        "AREA_FILE_SHOW" => "file",
+                        "PATH" => SITE_DIR . "include/main/toShop.php"
+                    )
+                ); ?>
+            </div>
+        </div>
+    </div>
+
+<? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/footer.php"); ?>

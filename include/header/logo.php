@@ -1,0 +1,2 @@
+<img class="logo-trans logo-reg" src="<?= SITE_TEMPLATE_PATH ?>/img/logo.png" height="21" width="75" alt="Elari">
+<img class="logo-main logo-reg" src="<?= SITE_TEMPLATE_PATH ?>/img/logo.png" height="21" width="75" alt="Elari">
