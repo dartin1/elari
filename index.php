@@ -198,87 +198,23 @@ $APPLICATION->SetTitle("Elari - Умные устройства для умны�
                     ),
                     false
                 ); ?>
+                
+                <? $APPLICATION->IncludeComponent("bitrix:subscribe.edit", "subscribeForm", Array(
+                    "AJAX_MODE" => "Y",    // Включить режим AJAX
+                    "AJAX_OPTION_ADDITIONAL" => "",    // Дополнительный идентификатор
+                    "AJAX_OPTION_HISTORY" => "N",    // Включить эмуляцию навигации браузера
+                    "AJAX_OPTION_JUMP" => "N",    // Включить прокрутку к началу компонента
+                    "AJAX_OPTION_STYLE" => "Y",    // Включить подгрузку стилей
+                    "ALLOW_ANONYMOUS" => "Y",    // Разрешить анонимную подписку
+                    "CACHE_TIME" => "3600",    // Время кеширования (сек.)
+                    "CACHE_TYPE" => "A",    // Тип кеширования
+                    "SET_TITLE" => "N",    // Устанавливать заголовок страницы
+                    "SHOW_AUTH_LINKS" => "N",    // Показывать ссылки на авторизацию при анонимной подписке
+                    "SHOW_HIDDEN" => "N",    // Показать скрытые рубрики подписки
+                ),
+                    false
+                ); ?>
 
-                <div>
-                    <section id="themo_conversion_form_1" class=" conversion-form ">
-                        <div class='container'>
-                            <div class="row">
-                                <div class="section-header col-xs-12 centered">
-                                    <h2>Оставайтесь информационно подкованными!</h2>
-                                    <p>Подписывайтесь на нашу рассылку и первыми получайте специальные предложения,
-                                        акции и распродажи!</p>
-                                </div><!-- /.section-header -->
-                            </div><!-- /.row -->
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <div class="simple-conversion">
-                                        <div class="frm_forms  with_frm_style frm_style_formidable-style"
-                                             id="frm_form_3_container">
-                                            <form enctype="multipart/form-data" method="post" class="frm-show-form "
-                                                  id="form_2ssykv">
-                                                <div class="frm_form_fields ">
-                                                    <fieldset>
-
-                                                        <input type="hidden" name="frm_action" value="create"/>
-                                                        <input type="hidden" name="form_id" value="3"/>
-                                                        <input type="hidden" name="frm_hide_fields_3"
-                                                               id="frm_hide_fields_3" value=""/>
-                                                        <input type="hidden" name="form_key" value="2ssykv"/>
-                                                        <input type="hidden" name="item_meta[0]" value=""/>
-                                                        <input type="hidden" id="frm_submit_entry_3"
-                                                               name="frm_submit_entry_3" value="f5184417ea"/><input
-                                                            type="hidden" name="_wp_http_referer" value="/"/>
-                                                        <div id="frm_field_16_container"
-                                                             class="frm_form_field form-field  frm_none_container">
-                                                            <label for="field_qy05f8" class="frm_primary_label">Name
-                                                                <span class="frm_required"></span>
-                                                            </label>
-                                                            <input type="text" id="field_qy05f8" name="item_meta[16]"
-                                                                   value="" placeholder="Имя"/>
-
-
-                                                        </div>
-                                                        <div id="frm_field_17_container"
-                                                             class="frm_form_field form-field  frm_required_field frm_none_container">
-                                                            <label for="field_3asv29" class="frm_primary_label">Email
-                                                                Address
-                                                                <span class="frm_required">*</span>
-                                                            </label>
-                                                            <input type="text" id="field_3asv29" name="item_meta[17]"
-                                                                   value="" placeholder="Email"
-                                                                   data-reqmsg="This field cannot be blank."/>
-
-
-                                                        </div>
-                                                        <div id="frm_field_18_container"
-                                                             class="frm_form_field form-field  frm_none_container">
-                                                            <label for="field_2ywico" class="frm_primary_label">Company
-                                                                Name
-                                                                <span class="frm_required"></span>
-                                                            </label>
-                                                            <input type="text" id="field_2ywico" name="item_meta[18]"
-                                                                   value="" placeholder="Название компании"/>
-
-
-                                                        </div>
-                                                        <input type="hidden" name="item_key" value=""/>
-                                                        <div class="frm_submit">
-
-                                                            <input type="submit" value="Отправить"/>
-                                                            <img class="frm_ajax_loading"
-                                                                 src="http://elari.ua/wp-content/plugins/formidable/images/ajax_loader.gif"
-                                                                 alt="Sending" style="visibility:hidden;"/>
-
-                                                        </div>
-                                                    </fieldset>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- /.container --></section>
-                </div>
                 <? $APPLICATION->IncludeComponent(
                     "bitrix:main.include",
                     "",

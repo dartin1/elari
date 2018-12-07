@@ -12,6 +12,7 @@ use Bitrix\Main\Page\Asset;
 
     <?
     $APPLICATION->ShowHead();
+    Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . '/css/formidablepro.css');
     Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . '/css/style.css');
     Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . '/css/masterslider.main.css');
     Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . '/css/custom.css');
@@ -21,8 +22,6 @@ use Bitrix\Main\Page\Asset;
     Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . '/css/responsive.css');
     Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . '/css/style(1).css');
     Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . '/css/style(2).css');
-    Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . '/css/style.css');
-    Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . '/css/style.css');
     Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . '/css/header-styles.css');
 
     CJSCore::Init(array("jquery2"));
