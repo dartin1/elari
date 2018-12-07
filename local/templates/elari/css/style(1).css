@@ -1,0 +1,49 @@
+/*
+Theme Name:     Stratus Child Theme
+Theme URI:      http://demo.themovation.com/stratus/
+Description:    Child theme for Stratus
+Author:         Themovation
+Author URI:     http://themovation.com
+Template:       stratus
+Version:        1.1
+License:        Regular License
+License URI:    http://themeforest.net/licenses/regular
+
+*/
+
+@import "css/main.css";
+
+/* CUSTOM MEDIA QUERIES */
+
+
+@media (max-width:767px) {
+  .container{width:100%; max-width: 600px;}
+  .mas-blog-post {width:100%; max-width: 600px;}
+  .split-blocks .service-block p,
+  .showcase .service-block p {margin: 0;}
+  h2, .section-header h2 {
+    font-size: 24px;
+  }
+  p, li {
+    font-size: 13px;
+  }
+  h1, #main-flex-slider .slides h1, #main-flex-slider .lrg-txt h1 {
+    font-size: 30px;
+    line-height: 34px;
+  }
+}
+
+/*======= ЗАГОЛОВКИ ДЛЯ FIXITIME 3 И KIDPHONE2=======*/
+
+.page-id-4277 .page-title .page-title-h1,
+.page-id-4142 .page-title .page-title-h1 {
+  text-shadow: 0 0 1px #fff;
+  font-size: 30px;
+  color: #4e4e4c;
+  font-weight: 500;
+  max-width: 500px;
+  display: inline-block;
+}
+@media (max-width:767px) {
+.page-id-4142 .page-title .page-title-h1 {font-size: 19px;}
+}
