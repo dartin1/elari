@@ -2199,7 +2199,7 @@ p.demo_store {
 }
 .woocommerce ul.products li.product .price ins {text-decoration:none;}
 
-.woocommerce ul.products li.product .star-rating {
+.woocommerce .star-rating {
     color:#444;
     margin-left:auto;
     margin-right:auto;

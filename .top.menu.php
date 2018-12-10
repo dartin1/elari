@@ -2,7 +2,7 @@
 $aMenuLinks = Array(
 	Array(
 		"Товары", 
-		"/elariproducts/", 
+		"/catalog/", 
 		Array(), 
 		Array(), 
 		"" 
