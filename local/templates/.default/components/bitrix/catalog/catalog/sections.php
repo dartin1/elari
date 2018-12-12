@@ -15,26 +15,18 @@
 $this->setFrameMode(true);
 ?>
 <div class="preloader loaded">
-    <section id="themo_page_header_1" class="light-text full-header-img"
+    <section id="themo_page_header" class="light-text full-header-img"
              style="padding-top: 181px; background-image:url('<?= CFile::GetPath(CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "PICTURE")); ?>');">
         <div class="container">
             <div class="row">
                 <div class="page-title centered">
-                    <h1 class="page-title-h1 "><?= CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "DESCRIPTION"); ?></h1>
+                    <h1 class="page-title-h1 "><?= $APPLICATION->ShowTitle(); ?></h1>
                 </div>
             </div><!-- /.row -->
         </div><!-- /.container -->
     </section>
 </div>
 <div class="meta-border content-width"></div>
-<script>
-    jQuery(document).ready(function ($) {
-        "use strict";
-        if (Modernizr.touch) {
-            $("section#themo_page_header_1").backstretch("http://elari.ua/wp-content/uploads/2016/06/1920x700-1920x700.jpg");
-        }
-    });
-</script>
 <?
 $arOrder[1]["VALUE"] = "SHOW_COUNTER";
 $arOrder[1]["NAME"] = "По популярности";

@@ -88,3 +88,8 @@
 .row::before {
 	display: initial;
 }
+.upsells {
+	padding-top: 30px;
+	margin-top: 30px;
+	border-top: 1px solid #e3e3e3;
+}

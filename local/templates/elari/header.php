@@ -102,7 +102,7 @@ if (strripos($page, '/catalog/') !== false)
                 "HIDE_ON_BASKET_PAGES" => "N",	// Не показывать на страницах корзины и оформления заказа
                 "PATH_TO_AUTHORIZE" => "",	// Страница авторизации
                 "PATH_TO_BASKET" => SITE_DIR."cart/",	// Страница корзины
-                "PATH_TO_ORDER" => SITE_DIR."order/",	// Страница оформления заказа
+                "PATH_TO_ORDER" => SITE_DIR."/order/",	// Страница оформления заказа
                 "PATH_TO_PERSONAL" => "",	// Страница персонального раздела
                 "PATH_TO_PROFILE" => SITE_DIR."personal/",	// Страница профиля
                 "PATH_TO_REGISTER" => "",	// Страница регистрации

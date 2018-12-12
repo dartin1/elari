@@ -549,8 +549,8 @@
 							this.product.slider.ITEMS = this.getEntities(this.product.slider.CONT, 'slider-control');
 							for (j = 0; j < this.product.slider.ITEMS.length; j++)
 							{
-								BX.bind(this.product.slider.ITEMS[j], 'mouseenter', BX.delegate(this.onSliderControlHover, this));
-								BX.bind(this.product.slider.ITEMS[j], 'mouseleave', BX.delegate(this.onSliderControlLeave, this));
+								/*BX.bind(this.product.slider.ITEMS[j], 'mouseenter', BX.delegate(this.onSliderControlHover, this));
+								BX.bind(this.product.slider.ITEMS[j], 'mouseleave', BX.delegate(this.onSliderControlLeave, this));*/
 								BX.bind(this.product.slider.ITEMS[j], 'click', BX.delegate(this.selectSliderImg, this));
 							}
 
@@ -604,8 +604,8 @@
 								this.slider.controls[i].ITEMS = this.getEntities(this.slider.controls[i].CONT, 'slider-control');
 								for (j = 0; j < this.slider.controls[i].ITEMS.length; j++)
 								{
-									BX.bind(this.slider.controls[i].ITEMS[j], 'mouseenter', BX.delegate(this.onSliderControlHover, this));
-									BX.bind(this.slider.controls[i].ITEMS[j], 'mouseleave', BX.delegate(this.onSliderControlLeave, this));
+									/*BX.bind(this.slider.controls[i].ITEMS[j], 'mouseenter', BX.delegate(this.onSliderControlHover, this));
+									BX.bind(this.slider.controls[i].ITEMS[j], 'mouseleave', BX.delegate(this.onSliderControlLeave, this));*/
 									BX.bind(this.slider.controls[i].ITEMS[j], 'click', BX.delegate(this.selectSliderImg, this));
 								}
 							}
@@ -1931,7 +1931,7 @@
 		quantitySet: function(index)
 		{
 			var strLimit, resetQuantity;
-			
+
 			var newOffer = this.offers[index],
 				oldOffer = this.offers[this.offerNum];
 
@@ -3361,53 +3361,17 @@
 
 				if (arResult.STATUS === 'OK')
 				{
-					BX.onCustomEvent('OnBasketChange');
-					switch (this.productType)
-					{
-						case 1: // product
-						case 2: // set
-							productPict = this.product.pict.SRC;
-							break;
-						case 3: // sku
-							productPict = this.offers[this.offerNum].PREVIEW_PICTURE
-								? this.offers[this.offerNum].PREVIEW_PICTURE.SRC
-								: this.defaultPict.pict.SRC;
-							break;
-					}
-
-					popupContent = '<div style="width: 100%; margin: 0; text-align: center;">'
-						+ '<img src="' + productPict + '" height="130" style="max-height:130px"><p>'
-						+ this.product.name + '</p></div>';
-
-					if (this.config.showClosePopup)
-					{
-						popupButtons = [
-							new BasketButton({
-								text: BX.message('BTN_MESSAGE_BASKET_REDIRECT'),
-								events: {
-									click: BX.delegate(this.basketRedirect, this)
-								},
-								style: {marginRight: '10px'}
-							}),
-							new BasketButton({
-								text: BX.message('BTN_MESSAGE_CLOSE_POPUP'),
-								events: {
-									click: BX.delegate(this.obPopupWin.close, this.obPopupWin)
-								}
-							})
-						];
-					}
-					else
-					{
-						popupButtons = [
-							new BasketButton({
-								text: BX.message('BTN_MESSAGE_BASKET_REDIRECT'),
-								events: {
-									click: BX.delegate(this.basketRedirect, this)
-								}
-							})
-						];
-					}
+					$.ajax({
+						type: "POST",
+						url: "/local/templates/elari/ajax/popup-basket.php",
+						contentType: false,
+						processData: false,
+						success: function (data) {
+							$('#basket-prod-insert').html(data);
+							$('#festi-cart-pop-up-content').bPopup();
+							BX.onCustomEvent('OnBasketChange');
+						}
+					});
 				}
 				else
 				{
@@ -3422,12 +3386,12 @@
 							}
 						})
 					];
+					this.obPopupWin.setTitleBar(arResult.STATUS === 'OK' ? BX.message('TITLE_SUCCESSFUL') : BX.message('TITLE_ERROR'));
+					this.obPopupWin.setContent(popupContent);
+					this.obPopupWin.setButtons(popupButtons);
+					this.obPopupWin.show();
 				}
 
-				this.obPopupWin.setTitleBar(arResult.STATUS === 'OK' ? BX.message('TITLE_SUCCESSFUL') : BX.message('TITLE_ERROR'));
-				this.obPopupWin.setContent(popupContent);
-				this.obPopupWin.setButtons(popupButtons);
-				this.obPopupWin.show();
 			}
 		},
 

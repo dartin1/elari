@@ -550,8 +550,8 @@
 					if (this.viewMode === 'CARD')
 					{
 						// product hover events
-						BX.bind(this.obProduct, 'mouseenter', BX.proxy(this.hoverOn, this));
-						BX.bind(this.obProduct, 'mouseleave', BX.proxy(this.hoverOff, this));
+						/*BX.bind(this.obProduct, 'mouseenter', BX.proxy(this.hoverOn, this));
+						BX.bind(this.obProduct, 'mouseleave', BX.proxy(this.hoverOff, this));*/
 					}
 
 					// product slider events
@@ -754,7 +754,7 @@
 		hoverOn: function(event)
 		{
 			clearTimeout(this.hoverTimer);
-			this.obProduct.style.height = getComputedStyle(this.obProduct).height;
+			//this.obProduct.style.height = getComputedStyle(this.obProduct).height;
 			BX.addClass(this.obProduct, 'hover');
 
 			BX.PreventDefault(event);
