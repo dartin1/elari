@@ -217,7 +217,6 @@ if (!function_exists("cmpBySort"))
 			include($_SERVER["DOCUMENT_ROOT"].$templateFolder."/person_type.php");
 			include($_SERVER["DOCUMENT_ROOT"].$templateFolder."/props.php");
 			include($_SERVER["DOCUMENT_ROOT"].$templateFolder."/summary.php");
-			include($_SERVER["DOCUMENT_ROOT"].$templateFolder."/delivery.php");
 			include($_SERVER["DOCUMENT_ROOT"].$templateFolder."/related_props.php");
 
 			if(strlen($arResult["PREPAY_ADIT_FIELDS"]) > 0)
@@ -232,7 +231,6 @@ if (!function_exists("cmpBySort"))
 					<input type="hidden" name="profile_change" id="profile_change" value="N">
 					<input type="hidden" name="is_ajax_post" id="is_ajax_post" value="Y">
 					<input type="hidden" name="json" value="Y">
-					<div class="bx_ordercart_order_pay_center"><a href="javascript:void();" onclick="submitForm('Y'); return false;" id="ORDER_CONFIRM_BUTTON" class="checkout"><?=GetMessage("SOA_TEMPL_BUTTON")?></a></div>
 				</form>
 				<?
 				if($arParams["DELIVERY_NO_AJAX"] == "N")
