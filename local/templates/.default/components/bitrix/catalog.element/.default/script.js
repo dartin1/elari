@@ -3478,3 +3478,17 @@
 		}
 	}
 })(window);
+
+
+// open review Tab for anchor
+$(".woocommerce-review-link").click(function () {
+	$(".wc-tabs li").each(function () {
+		$(this).removeClass("active");
+	});
+	$(".reviews_tab").addClass("active");
+
+	$(".woocommerce-Tabs-panel").each(function () {
+		$(this).css("display","none");
+	});
+	$(".woocommerce-Tabs-panel--reviews").css("display","block");
+});

@@ -19,6 +19,8 @@ $this->addExternalCss('/bitrix/css/main/bootstrap.css');
 $templateLibrary = array('popup', 'fx');
 $currencyList = '';
 
+$GLOBALS['reviewsFilter'] = array("PROPERTY_PRODUCT_LINK" => $arResult['ID']);
+
 if (!empty($arResult['CURRENCIES'])) {
     $templateLibrary[] = 'currency';
     $currencyList = CUtil::PhpToJSObject($arResult['CURRENCIES'], false, true, true);
@@ -278,18 +280,75 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                 }
                                 ?>
                             </h1>
-                            <div class="woocommerce-product-rating" itemprop="aggregateRating" itemscope=""
-                                 itemtype="http://schema.org/AggregateRating">
-                                <? $ratingWidth = $arResult["PROPERTIES"]["rating"]["VALUE"] / 5 * 100 ?>
-                                <div class="star-rating"
-                                     title="Оценка <?= $arResult["PROPERTIES"]["rating"]["VALUE"] ?> из 5">
-			<span style="width:<?= $ratingWidth ?>%">
-				<strong itemprop="ratingValue" class="rating"><?= $arResult["PROPERTIES"]["rating"]["VALUE"] ?></strong> из <span
-                    itemprop="bestRating">5</span>
-                                </div>
-                                <a href="#reviews" class="woocommerce-review-link"
-                                   rel="nofollow">(<?= DeclOfNum($arResult["PROPERTIES"]["BLOG_COMMENTS_CNT"]["VALUE"], array("отзыв", "отзыва", "отзывов")) ?>
-                                    клиентов)</a></div>
+
+
+                            <? $APPLICATION->IncludeComponent(
+                                "bitrix:news.list",
+                                "reviewsRating",
+                                array(
+                                    "ACTIVE_DATE_FORMAT" => "f j, Y",
+                                    "ADD_SECTIONS_CHAIN" => "N",
+                                    "AJAX_MODE" => "N",
+                                    "AJAX_OPTION_ADDITIONAL" => "",
+                                    "AJAX_OPTION_HISTORY" => "N",
+                                    "AJAX_OPTION_JUMP" => "N",
+                                    "AJAX_OPTION_STYLE" => "Y",
+                                    "CACHE_FILTER" => "N",
+                                    "CACHE_GROUPS" => "Y",
+                                    "CACHE_TIME" => "36000000",
+                                    "CACHE_TYPE" => "A",
+                                    "CHECK_DATES" => "Y",
+                                    "DETAIL_URL" => "",
+                                    "DISPLAY_BOTTOM_PAGER" => "N",
+                                    "DISPLAY_DATE" => "Y",
+                                    "DISPLAY_NAME" => "Y",
+                                    "DISPLAY_PICTURE" => "Y",
+                                    "DISPLAY_PREVIEW_TEXT" => "Y",
+                                    "DISPLAY_TOP_PAGER" => "N",
+                                    "FIELD_CODE" => array(
+                                        0 => "ID",
+                                        1 => "NAME",
+                                    ),
+                                    "FILTER_NAME" => "reviewsFilter",
+                                    "HIDE_LINK_WHEN_NO_DETAIL" => "N",
+                                    "IBLOCK_ID" => "8",
+                                    "IBLOCK_TYPE" => "-",
+                                    "INCLUDE_IBLOCK_INTO_CHAIN" => "N",
+                                    "INCLUDE_SUBSECTIONS" => "Y",
+                                    "MESSAGE_404" => "",
+                                    "NEWS_COUNT" => "50",
+                                    "PAGER_BASE_LINK_ENABLE" => "N",
+                                    "PAGER_DESC_NUMBERING" => "N",
+                                    "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+                                    "PAGER_SHOW_ALL" => "N",
+                                    "PAGER_SHOW_ALWAYS" => "N",
+                                    "PAGER_TEMPLATE" => ".default",
+                                    "PAGER_TITLE" => "Новости",
+                                    "PARENT_SECTION" => "",
+                                    "PARENT_SECTION_CODE" => "",
+                                    "PREVIEW_TRUNCATE_LEN" => "",
+                                    "PROPERTY_CODE" => array(
+                                        2 => "RATING",
+                                        3 => "",
+                                    ),
+                                    "SET_BROWSER_TITLE" => "N",
+                                    "SET_LAST_MODIFIED" => "N",
+                                    "SET_META_DESCRIPTION" => "N",
+                                    "SET_META_KEYWORDS" => "Y",
+                                    "SET_STATUS_404" => "N",
+                                    "SET_TITLE" => "N",
+                                    "SHOW_404" => "N",
+                                    "SORT_BY1" => "ACTIVE_FROM",
+                                    "SORT_BY2" => "SORT",
+                                    "SORT_ORDER1" => "DESC",
+                                    "SORT_ORDER2" => "ASC",
+                                    "STRICT_SECTION_CHECK" => "N",
+                                    "PRODUCT_NAME" => $arResult["NAME"],
+                                    "COMPONENT_TEMPLATE" => "review-list",
+                                    "DETAIL_ELEMENT" => "Y"
+                                ),
+                                false
+                            ); ?>
                             <div class="single-product">
                                 <div class="product">
                                     <p class="price">
@@ -421,13 +480,13 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                                     }
                                                     ?>
                                                 </div>
-                                                    <a class="btn btn-default product-item-detail-buy-button" disabled
-                                                       id="<?= $itemIds['NOT_AVAILABLE_MESS'] ?>"
-                                                       href="javascript:void(0)"
-                                                       rel="nofollow"
-                                                       style="display: <?= (!$actualItem['CAN_BUY'] ? '' : 'none') ?>;">
-                                                        <span><?= $arParams['MESS_NOT_AVAILABLE'] ?></span>
-                                                    </a>
+                                                <a class="btn btn-default product-item-detail-buy-button" disabled
+                                                   id="<?= $itemIds['NOT_AVAILABLE_MESS'] ?>"
+                                                   href="javascript:void(0)"
+                                                   rel="nofollow"
+                                                   style="display: <?= (!$actualItem['CAN_BUY'] ? '' : 'none') ?>;">
+                                                    <span><?= $arParams['MESS_NOT_AVAILABLE'] ?></span>
+                                                </a>
                                                 <?
                                             } ?>
                                         <? } ?>
@@ -438,96 +497,6 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                 <span class="sku_wrapper"><?= $arResult["PROPERTIES"]["ARTNUMBER"]["NAME"] ?>: <span
                                         class="sku"
                                         itemprop="sku"><?= $arResult["PROPERTIES"]["ARTNUMBER"]["VALUE"] ?></span></span>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="product-item-detail-pay-block">
-                                <?
-                                foreach ($arParams['PRODUCT_PAY_BLOCK_ORDER'] as $blockName) {
-                                    switch ($blockName) {
-                                        case 'rating':
-                                            if ($arParams['USE_VOTE_RATING'] === 'Y') {
-                                                ?>
-                                                <div class="product-item-detail-info-container">
-                                                    <?
-                                                    $APPLICATION->IncludeComponent(
-                                                        'bitrix:iblock.vote',
-                                                        'stars',
-                                                        array(
-                                                            'CUSTOM_SITE_ID' => isset($arParams['CUSTOM_SITE_ID']) ? $arParams['CUSTOM_SITE_ID'] : null,
-                                                            'IBLOCK_TYPE' => $arParams['IBLOCK_TYPE'],
-                                                            'IBLOCK_ID' => $arParams['IBLOCK_ID'],
-                                                            'ELEMENT_ID' => $arResult['ID'],
-                                                            'ELEMENT_CODE' => '',
-                                                            'MAX_VOTE' => '5',
-                                                            'VOTE_NAMES' => array('1', '2', '3', '4', '5'),
-                                                            'SET_STATUS_404' => 'N',
-                                                            'DISPLAY_AS_RATING' => $arParams['VOTE_DISPLAY_AS_RATING'],
-                                                            'CACHE_TYPE' => $arParams['CACHE_TYPE'],
-                                                            'CACHE_TIME' => $arParams['CACHE_TIME']
-                                                        ),
-                                                        $component,
-                                                        array('HIDE_ICONS' => 'Y')
-                                                    );
-                                                    ?>
-                                                </div>
-                                                <?
-                                            }
-
-                                            break;
-
-
-                                        case 'quantityLimit':
-                                            if ($arParams['SHOW_MAX_QUANTITY'] !== 'N') {
-                                                if ($haveOffers) {
-                                                    ?>
-                                                    <div class="product-item-detail-info-container"
-                                                         id="<?= $itemIds['QUANTITY_LIMIT'] ?>" style="display: none;">
-                                                        <div class="product-item-detail-info-container-title">
-                                                            <?= $arParams['MESS_SHOW_MAX_QUANTITY'] ?>:
-                                                            <span class="product-item-quantity"
-                                                                  data-entity="quantity-limit-value"></span>
-                                                        </div>
-                                                    </div>
-                                                    <?
-                                                } else {
-                                                    if (
-                                                        $measureRatio
-                                                        && (float)$actualItem['CATALOG_QUANTITY'] > 0
-                                                        && $actualItem['CATALOG_QUANTITY_TRACE'] === 'Y'
-                                                        && $actualItem['CATALOG_CAN_BUY_ZERO'] === 'N'
-                                                    ) {
-                                                        ?>
-                                                        <div class="product-item-detail-info-container"
-                                                             id="<?= $itemIds['QUANTITY_LIMIT'] ?>">
-                                                            <div class="product-item-detail-info-container-title">
-                                                                <?= $arParams['MESS_SHOW_MAX_QUANTITY'] ?>:
-															<span class="product-item-quantity"
-                                                                  data-entity="quantity-limit-value">
-																<?
-                                                                if ($arParams['SHOW_MAX_QUANTITY'] === 'M') {
-                                                                    if ((float)$actualItem['CATALOG_QUANTITY'] / $measureRatio >= $arParams['RELATIVE_QUANTITY_FACTOR']) {
-                                                                        echo $arParams['MESS_RELATIVE_QUANTITY_MANY'];
-                                                                    } else {
-                                                                        echo $arParams['MESS_RELATIVE_QUANTITY_FEW'];
-                                                                    }
-                                                                } else {
-                                                                    echo $actualItem['CATALOG_QUANTITY'] . ' ' . $actualItem['ITEM_MEASURE']['TITLE'];
-                                                                }
-                                                                ?>
-															</span>
-                                                            </div>
-                                                        </div>
-                                                        <?
-                                                    }
-                                                }
-                                            }
-
-                                            break;
-
-                                    }
-                                }
-                                ?>
                             </div>
                         </div>
                     </div>
@@ -557,17 +526,12 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                 </li>
                                 <?
                             }
-
-                            if ($arParams['USE_COMMENTS'] === 'Y') {
                                 ?>
                                 <li class="reviews_tab" data-entity="tab" data-value="comments">
                                     <a href="javascript:void(0);">
                                         <span><?= $arParams['MESS_COMMENTS_TAB'] ?></span>
                                     </a>
                                 </li>
-                                <?
-                            }
-                            ?>
                         </ul>
                         <div id="<?= $itemIds['TAB_CONTAINERS_ID'] ?>">
                             <?
@@ -636,63 +600,124 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                 <?
                             }
 
-                            if ($arParams['USE_COMMENTS'] === 'Y') {
-                                ?>
-                                <div
-                                    class="woocommerce-Tabs-panel woocommerce-Tabs-panel--reviews panel entry-content wc-tab"
-                                    data-entity="tab-container"
-                                    data-value="comments" style="display: none;">
-                                    <?
-                                    $componentCommentsParams = array(
-                                        'ELEMENT_ID' => $arResult['ID'],
-                                        'ELEMENT_CODE' => '',
-                                        'IBLOCK_ID' => $arParams['IBLOCK_ID'],
-                                        'SHOW_DEACTIVATED' => $arParams['SHOW_DEACTIVATED'],
-                                        'URL_TO_COMMENT' => '',
-                                        'WIDTH' => '',
-                                        'COMMENTS_COUNT' => '5',
-                                        'BLOG_USE' => $arParams['BLOG_USE'],
-                                        'FB_USE' => $arParams['FB_USE'],
-                                        'FB_APP_ID' => $arParams['FB_APP_ID'],
-                                        'VK_USE' => $arParams['VK_USE'],
-                                        'VK_API_ID' => $arParams['VK_API_ID'],
-                                        'CACHE_TYPE' => $arParams['CACHE_TYPE'],
-                                        'CACHE_TIME' => $arParams['CACHE_TIME'],
-                                        'CACHE_GROUPS' => $arParams['CACHE_GROUPS'],
-                                        'BLOG_TITLE' => '',
-                                        'BLOG_URL' => $arParams['BLOG_URL'],
-                                        'PATH_TO_SMILE' => '',
-                                        'EMAIL_NOTIFY' => $arParams['BLOG_EMAIL_NOTIFY'],
-                                        'AJAX_POST' => 'Y',
-                                        'SHOW_SPAM' => 'Y',
-                                        'SHOW_RATING' => 'Y',
-                                        'FB_TITLE' => '',
-                                        'FB_USER_ADMIN_ID' => '',
-                                        'FB_COLORSCHEME' => 'light',
-                                        'FB_ORDER_BY' => 'reverse_time',
-                                        'VK_TITLE' => '',
-                                        'TEMPLATE_THEME' => $arParams['~TEMPLATE_THEME']
-                                    );
-                                    if (isset($arParams["USER_CONSENT"]))
-                                        $componentCommentsParams["USER_CONSENT"] = $arParams["USER_CONSENT"];
-                                    if (isset($arParams["USER_CONSENT_ID"]))
-                                        $componentCommentsParams["USER_CONSENT_ID"] = $arParams["USER_CONSENT_ID"];
-                                    if (isset($arParams["USER_CONSENT_IS_CHECKED"]))
-                                        $componentCommentsParams["USER_CONSENT_IS_CHECKED"] = $arParams["USER_CONSENT_IS_CHECKED"];
-                                    if (isset($arParams["USER_CONSENT_IS_LOADED"]))
-                                        $componentCommentsParams["USER_CONSENT_IS_LOADED"] = $arParams["USER_CONSENT_IS_LOADED"];
-                                    $APPLICATION->IncludeComponent(
-                                        'bitrix:catalog.comments',
-                                        '',
-                                        $componentCommentsParams,
-                                        $component,
-                                        array('HIDE_ICONS' => 'Y')
-                                    );
-                                    ?>
-                                </div>
-                                <?
-                            }
                             ?>
+                            <div
+                                class="woocommerce-Tabs-panel woocommerce woocommerce-Tabs-panel--reviews panel entry-content wc-tab"
+                                data-entity="tab-container"
+                                data-value="comments" style="display: none;">
+                                <div id="reviews" class="woocommerce-Reviews">
+                                    <? $APPLICATION->IncludeComponent(
+                                        "bitrix:news.list",
+                                        "review-list",
+                                        array(
+                                            "ACTIVE_DATE_FORMAT" => "f j, Y",
+                                            "ADD_SECTIONS_CHAIN" => "N",
+                                            "AJAX_MODE" => "N",
+                                            "AJAX_OPTION_ADDITIONAL" => "",
+                                            "AJAX_OPTION_HISTORY" => "N",
+                                            "AJAX_OPTION_JUMP" => "N",
+                                            "AJAX_OPTION_STYLE" => "Y",
+                                            "CACHE_FILTER" => "N",
+                                            "CACHE_GROUPS" => "Y",
+                                            "CACHE_TIME" => "36000000",
+                                            "CACHE_TYPE" => "A",
+                                            "CHECK_DATES" => "Y",
+                                            "DETAIL_URL" => "",
+                                            "DISPLAY_BOTTOM_PAGER" => "N",
+                                            "DISPLAY_DATE" => "Y",
+                                            "DISPLAY_NAME" => "Y",
+                                            "DISPLAY_PICTURE" => "Y",
+                                            "DISPLAY_PREVIEW_TEXT" => "Y",
+                                            "DISPLAY_TOP_PAGER" => "N",
+                                            "FIELD_CODE" => array(
+                                                0 => "ID",
+                                                1 => "NAME",
+                                                2 => "DATE_CREATE",
+                                                3 => "TIMESTAMP_X",
+                                                4 => "USER_NAME",
+                                                5 => "",
+                                            ),
+                                            "FILTER_NAME" => "reviewsFilter",
+                                            "HIDE_LINK_WHEN_NO_DETAIL" => "N",
+                                            "IBLOCK_ID" => "8",
+                                            "IBLOCK_TYPE" => "-",
+                                            "INCLUDE_IBLOCK_INTO_CHAIN" => "N",
+                                            "INCLUDE_SUBSECTIONS" => "Y",
+                                            "MESSAGE_404" => "",
+                                            "NEWS_COUNT" => "50",
+                                            "PAGER_BASE_LINK_ENABLE" => "N",
+                                            "PAGER_DESC_NUMBERING" => "N",
+                                            "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+                                            "PAGER_SHOW_ALL" => "N",
+                                            "PAGER_SHOW_ALWAYS" => "N",
+                                            "PAGER_TEMPLATE" => ".default",
+                                            "PAGER_TITLE" => "Новости",
+                                            "PARENT_SECTION" => "",
+                                            "PARENT_SECTION_CODE" => "",
+                                            "PREVIEW_TRUNCATE_LEN" => "",
+                                            "PROPERTY_CODE" => array(
+                                                0 => "ADMIN_COMMENT",
+                                                1 => "REVIEW",
+                                                2 => "RATING",
+                                                3 => "",
+                                            ),
+                                            "SET_BROWSER_TITLE" => "N",
+                                            "SET_LAST_MODIFIED" => "N",
+                                            "SET_META_DESCRIPTION" => "N",
+                                            "SET_META_KEYWORDS" => "Y",
+                                            "SET_STATUS_404" => "N",
+                                            "SET_TITLE" => "N",
+                                            "SHOW_404" => "N",
+                                            "SORT_BY1" => "ACTIVE_FROM",
+                                            "SORT_BY2" => "SORT",
+                                            "SORT_ORDER1" => "DESC",
+                                            "SORT_ORDER2" => "ASC",
+                                            "STRICT_SECTION_CHECK" => "N",
+                                            "PRODUCT_NAME" => $arResult["NAME"],
+                                            "COMPONENT_TEMPLATE" => "review-list"
+                                        ),
+                                        false
+                                    ); ?>
+
+                                    <? $APPLICATION->IncludeComponent(
+                                        "dartin:feedbackForm",
+                                        "review-form",
+                                        array(
+                                            "IBLOCK_ID" => "8",
+                                            "FIELDS" => array(
+                                                "FIELD0" => array(
+                                                    0 => "Ваша оценка",
+                                                    1 => "RATING",
+                                                    2 => ""
+                                                ),
+                                                "FIELD1" => array(
+                                                    0 => "Ваш отзыв*",
+                                                    1 => "REVIEW",
+                                                    2 => "REQUIRED"
+                                                ),
+                                                "FIELD2" => array(
+                                                    0 => "Название *",
+                                                    1 => "NAME",
+                                                    2 => "REQUIRED"
+                                                ),
+                                                "FIELD3" => array(
+                                                    0 => "Email *",
+                                                    1 => "EMAIL",
+                                                    2 => "REQUIRED"
+                                                ),
+                                                "FIELD4" => array(
+                                                    0 => $arResult["ID"],
+                                                    1 => "PRODUCT_LINK",
+                                                    2 => "REQUIRED"
+                                                )
+                                            ),
+                                            "NAME" => "Добавить отзыв",
+                                            "DESCRIPTION" => "Ваш e-mail не будет опубликован. Обязательные поля помечены *"
+                                        ),
+                                        false
+                                    ); ?>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

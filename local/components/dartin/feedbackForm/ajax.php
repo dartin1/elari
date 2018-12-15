@@ -1,24 +1,20 @@
-<?require_once($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");?>
+<? require_once($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php"); ?>
 <?
 $responseArr = array();
-if (!empty($_POST))
-{
+if (!empty($_POST)) {
 
-    if (CModule::IncludeModule("iblock"))
-    {
+    if (CModule::IncludeModule("iblock")) {
         $props = array();
         $arEventFields = array();
 
         $iBlockID = $_POST["IBLOCK_ID"];
-        $name = 'Заявка от: '.$_POST['NAME'];
+        $name = $_POST['NAME'];
         $postEvent = $_POST["EVENT_NAME"];
         unset($_POST["EVENT_NAME"]);
         unset($_POST["IBLOCK_ID"]);
 
-        foreach($_POST as $key => $val)
-        {
-            if($key != 'EVENT_NAME')
-            {
+        foreach ($_POST as $key => $val) {
+            if ($key != 'EVENT_NAME') {
                 $val = htmlspecialchars(trim($val));
                 $props[$key] = $val;
                 $arEventFields[strtoupper($key)] = $val;
@@ -34,12 +30,13 @@ if (!empty($_POST))
         $responseArr['NEW_RECORD'] = $newRecordArr;
         $responseArr['$arEventFields'] = $arEventFields;
 
-        if ($recordID = $newRecord->Add($newRecordArr))
-        {
-            if ($cEventID = CEvent::Send($postEvent, "s1", $arEventFields, 'Y'))
-                $responseArr['SUCCESS'] = 'Success';
-            else
-                $responseArr['ERROR'] = 'POST ERROR';
+        if ($recordID = $newRecord->Add($newRecordArr)) {
+            if ($postEvent) {
+                if ($cEventID = CEvent::Send($postEvent, "s1", $arEventFields, 'Y'))
+                    $responseArr['SUCCESS'] = 'Success';
+                else
+                    $responseArr['ERROR'] = 'POST ERROR';
+            }
         } else
             $responseArr['ERROR'] = $newRecord->LAST_ERROR;
 

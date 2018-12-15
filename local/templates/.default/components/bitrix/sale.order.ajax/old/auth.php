@@ -65,7 +65,7 @@ function ChangeGenerate(val)
 					</tr>
 				</table>
 			</form>
-		</td>		
+		</td>
 		<td>
 			<?if($arResult["AUTH"]["new_user_registration"]=="Y"):?>
 				<form method="post" action="" name="order_reg_form">

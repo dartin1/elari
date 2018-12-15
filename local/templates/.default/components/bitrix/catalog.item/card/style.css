@@ -874,3 +874,7 @@
 	background-color: #ff4c4c !important;
 	padding-right: 2px;
 }
+.product-item-label-ring.product-item-label-bottom {
+	padding-top: 0px !important;
+	line-height: 40px !important;
+}

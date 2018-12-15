@@ -160,53 +160,6 @@ use \Bitrix\Main\Localization\Loc;
                     <?
                     break;
 
-                case 'quantityLimit':
-                    if ($arParams['SHOW_MAX_QUANTITY'] !== 'N') {
-                        if ($haveOffers) {
-                            if ($arParams['PRODUCT_DISPLAY_MODE'] === 'Y') {
-                                ?>
-                                <div class="product-item-info-container" id="<?= $itemIds['QUANTITY_LIMIT'] ?>"
-                                     style="display: none;" data-entity="quantity-limit-block">
-                                    <div class="product-item-info-container-title">
-                                        <?= $arParams['MESS_SHOW_MAX_QUANTITY'] ?>:
-                                        <span class="product-item-quantity" data-entity="quantity-limit-value"></span>
-                                    </div>
-                                </div>
-                                <?
-                            }
-                        } else {
-                            if (
-                                $measureRatio
-                                && (float)$actualItem['CATALOG_QUANTITY'] > 0
-                                && $actualItem['CATALOG_QUANTITY_TRACE'] === 'Y'
-                                && $actualItem['CATALOG_CAN_BUY_ZERO'] === 'N'
-                            ) {
-                                ?>
-                                <div class="product-item-info-container" id="<?= $itemIds['QUANTITY_LIMIT'] ?>">
-                                    <div class="product-item-info-container-title">
-                                        <?= $arParams['MESS_SHOW_MAX_QUANTITY'] ?>:
-										<span class="product-item-quantity">
-											<?
-                                            if ($arParams['SHOW_MAX_QUANTITY'] === 'M') {
-                                                if ((float)$actualItem['CATALOG_QUANTITY'] / $measureRatio >= $arParams['RELATIVE_QUANTITY_FACTOR']) {
-                                                    echo $arParams['MESS_RELATIVE_QUANTITY_MANY'];
-                                                } else {
-                                                    echo $arParams['MESS_RELATIVE_QUANTITY_FEW'];
-                                                }
-                                            } else {
-                                                echo $actualItem['CATALOG_QUANTITY'] . ' ' . $actualItem['ITEM_MEASURE']['TITLE'];
-                                            }
-                                            ?>
-										</span>
-                                    </div>
-                                </div>
-                                <?
-                            }
-                        }
-                    }
-
-                    break;
-
                 case 'quantity':
                     if (!$haveOffers) {
                         if ($actualItem['CAN_BUY'] && $arParams['USE_PRODUCT_QUANTITY']) {
@@ -420,46 +373,11 @@ use \Bitrix\Main\Localization\Loc;
                                 }
                                 ?>
                             </div>
-                            <?
-                        }
-                    } else {
-                        $showProductProps = !empty($item['DISPLAY_PROPERTIES']);
-                        $showOfferProps = $arParams['PRODUCT_DISPLAY_MODE'] === 'Y' && $item['OFFERS_PROPS_DISPLAY'];
 
-                        if ($showProductProps || $showOfferProps) {
-                            ?>
-                            <div class="product-item-info-container" data-entity="props-block">
-                                <dl class="product-item-properties">
-                                    <?
-                                    if ($showProductProps) {
-                                        foreach ($item['DISPLAY_PROPERTIES'] as $code => $displayProperty) {
-                                            if ($displayProperty["CODE"] == "rating") {
-                                                ?>
-                                                <?
-                                                $raitWidth = ($displayProperty["VALUE"] / 5) * 100;
-                                                ?>
-                                                <div class="star-rating"
-                                                     title="Оценка <?= $displayProperty["VALUE"] ?> из 5">
-                                                    <span style="width:<?= $raitWidth ?>%"><strong
-                                                            class="rating"><?= $displayProperty["VALUE"] ?> </strong> из 5</span>
-                                                </div>
-                                                <?
-                                            }
-                                        }
-                                    }
 
-                                    if ($showOfferProps) {
-                                        ?>
-                                        <span id="<?= $itemIds['DISPLAY_PROP_DIV'] ?>" style="display: none;"></span>
-                                        <?
-                                    }
-                                    ?>
-                                </dl>
-                            </div>
                             <?
                         }
                     }
-
                     break;
 
                 case 'sku':
@@ -564,24 +482,80 @@ use \Bitrix\Main\Localization\Loc;
             }
         }
     }
-
-    if (
-        $arParams['DISPLAY_COMPARE']
-        && (!$haveOffers || $arParams['PRODUCT_DISPLAY_MODE'] === 'Y')
-    ) {
-        ?>
-        <div class="product-item-compare-container">
-            <div class="product-item-compare">
-                <div class="checkbox">
-                    <label id="<?= $itemIds['COMPARE_LINK'] ?>">
-                        <input type="checkbox" data-entity="compare-checkbox">
-                        <span data-entity="compare-title"><?= $arParams['MESS_BTN_COMPARE'] ?></span>
-                    </label>
-                </div>
-            </div>
-        </div>
-        <?
-    }
     ?>
+    <div class="product-item-info-container" data-entity="props-block">
+        <dl class="product-item-properties">
+            <?
+            $GLOBALS['reviewsFilter'] = array("PROPERTY_PRODUCT_LINK" => $item['ID']);
+            $APPLICATION->IncludeComponent(
+                "bitrix:news.list",
+                "reviewsRating",
+                array(
+                    "ACTIVE_DATE_FORMAT" => "f j, Y",
+                    "ADD_SECTIONS_CHAIN" => "N",
+                    "AJAX_MODE" => "N",
+                    "AJAX_OPTION_ADDITIONAL" => "",
+                    "AJAX_OPTION_HISTORY" => "N",
+                    "AJAX_OPTION_JUMP" => "N",
+                    "AJAX_OPTION_STYLE" => "Y",
+                    "CACHE_FILTER" => "N",
+                    "CACHE_GROUPS" => "Y",
+                    "CACHE_TIME" => "36000000",
+                    "CACHE_TYPE" => "A",
+                    "CHECK_DATES" => "Y",
+                    "DETAIL_URL" => "",
+                    "DISPLAY_BOTTOM_PAGER" => "N",
+                    "DISPLAY_DATE" => "Y",
+                    "DISPLAY_NAME" => "Y",
+                    "DISPLAY_PICTURE" => "Y",
+                    "DISPLAY_PREVIEW_TEXT" => "Y",
+                    "DISPLAY_TOP_PAGER" => "N",
+                    "FIELD_CODE" => array(
+                        0 => "ID",
+                        1 => "NAME",
+                    ),
+                    "FILTER_NAME" => "reviewsFilter",
+                    "HIDE_LINK_WHEN_NO_DETAIL" => "N",
+                    "IBLOCK_ID" => "8",
+                    "IBLOCK_TYPE" => "-",
+                    "INCLUDE_IBLOCK_INTO_CHAIN" => "N",
+                    "INCLUDE_SUBSECTIONS" => "Y",
+                    "MESSAGE_404" => "",
+                    "NEWS_COUNT" => "50",
+                    "PAGER_BASE_LINK_ENABLE" => "N",
+                    "PAGER_DESC_NUMBERING" => "N",
+                    "PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+                    "PAGER_SHOW_ALL" => "N",
+                    "PAGER_SHOW_ALWAYS" => "N",
+                    "PAGER_TEMPLATE" => ".default",
+                    "PAGER_TITLE" => "Новости",
+                    "PARENT_SECTION" => "",
+                    "PARENT_SECTION_CODE" => "",
+                    "PREVIEW_TRUNCATE_LEN" => "",
+                    "PROPERTY_CODE" => array(
+                        2 => "RATING",
+                        3 => "",
+                    ),
+                    "SET_BROWSER_TITLE" => "N",
+                    "SET_LAST_MODIFIED" => "N",
+                    "SET_META_DESCRIPTION" => "N",
+                    "SET_META_KEYWORDS" => "Y",
+                    "SET_STATUS_404" => "N",
+                    "SET_TITLE" => "N",
+                    "SHOW_404" => "N",
+                    "SORT_BY1" => "ACTIVE_FROM",
+                    "SORT_BY2" => "SORT",
+                    "SORT_ORDER1" => "DESC",
+                    "SORT_ORDER2" => "ASC",
+                    "STRICT_SECTION_CHECK" => "N",
+                    "PRODUCT_NAME" => $arResult["NAME"],
+                    "COMPONENT_TEMPLATE" => "review-list",
+                    "LIST" => "Y"
+                ),
+                false
+            );
+            ?>
+        </dl>
+    </div>
 </div>
 
