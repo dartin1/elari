@@ -1007,7 +1007,7 @@
 		quantitySet: function(index)
 		{
 			var resetQuantity, strLimit;
-			
+
 			var newOffer = this.offers[index],
 				oldOffer = this.offers[this.offerNum];
 
@@ -2550,7 +2550,7 @@
 					this.obPopupWin.setButtons(buttons);
 					this.obPopupWin.show();
 				}
-				
+
 			}
 		},
 

@@ -12,14 +12,17 @@ use \Bitrix\Main\Localization\Loc;
  * @var string $componentPath
  * @var string $templateFolder
  */
-
 $this->setFrameMode(true);
 $this->addExternalCss('/bitrix/css/main/bootstrap.css');
 
-$templateLibrary = array('popup', 'fx');
-$currencyList = '';
+// path for promo pages
+if (strripos($arResult['~ADD_URL_TEMPLATE'], "catalog/") === false)
+    $arResult['~ADD_URL_TEMPLATE'] = "/catalog" . $arResult['~ADD_URL_TEMPLATE'];
 
 $GLOBALS['reviewsFilter'] = array("PROPERTY_PRODUCT_LINK" => $arResult['ID']);
+
+$templateLibrary = array('popup', 'fx');
+$currencyList = '';
 
 if (!empty($arResult['CURRENCIES'])) {
     $templateLibrary[] = 'currency';
@@ -526,12 +529,12 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                                 </li>
                                 <?
                             }
-                                ?>
-                                <li class="reviews_tab" data-entity="tab" data-value="comments">
-                                    <a href="javascript:void(0);">
-                                        <span><?= $arParams['MESS_COMMENTS_TAB'] ?></span>
-                                    </a>
-                                </li>
+                            ?>
+                            <li class="reviews_tab" data-entity="tab" data-value="comments">
+                                <a href="javascript:void(0);">
+                                    <span><?= $arParams['MESS_COMMENTS_TAB'] ?></span>
+                                </a>
+                            </li>
                         </ul>
                         <div id="<?= $itemIds['TAB_CONTAINERS_ID'] ?>">
                             <?
@@ -726,7 +729,8 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
         </div>
 
         <!--Top tabs-->
-        <div class="product-item-detail-tabs-container-fixed hidden-xs" id="<?= $itemIds['TABS_PANEL_ID'] ?>">
+        <div class="product-item-detail-tabs-container-fixed hidden-xs" id="<?= $itemIds['TABS_PANEL_ID'] ?>"
+             style="display: none">
             <ul class="product-item-detail-tabs-list">
                 <?
                 if ($showDescription) {
@@ -748,17 +752,12 @@ if (!empty($arParams['LABEL_PROP_POSITION'])) {
                     </li>
                     <?
                 }
-
-                if ($arParams['USE_COMMENTS'] === 'Y') {
-                    ?>
-                    <li class="product-item-detail-tab" data-entity="tab" data-value="comments">
-                        <a href="javascript:void(0);" class="product-item-detail-tab-link">
-                            <span><?= $arParams['MESS_COMMENTS_TAB'] ?></span>
-                        </a>
-                    </li>
-                    <?
-                }
                 ?>
+                <li class="product-item-detail-tab" data-entity="tab" data-value="comments">
+                    <a href="javascript:void(0);" class="product-item-detail-tab-link">
+                        <span><?= $arParams['MESS_COMMENTS_TAB'] ?></span>
+                    </a>
+                </li>
             </ul>
         </div>
 

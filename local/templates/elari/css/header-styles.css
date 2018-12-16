@@ -449,10 +449,46 @@ section#themo_page_header {
     content: "→";
     margin-left: 10px;
 }
+
 .wrap {
     overflow-x: hidden;
 }
 
 .bx_ordercart_coupon {
     margin-top: 10px !important;
+}
+
+section#themo_page_header_1 {
+    background-attachment: scroll;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+section#themo_page_header_1 {
+    padding-top: 100px;
+    padding-bottom: 160px
+}
+
+section#themo_showcase_1 {
+    background-color: #f7f7f7;
+}
+
+section#themo_showcase_1 {
+    padding-top: 30px;
+    padding-bottom: 0px
+}
+
+section#themo_html_4 {
+}
+
+section#themo_html_4 {
+    padding-top: 130px;
+    padding-bottom: 60px
+}
+
+section#themo_showcase_3 {
+    padding: 0 15%;
+    padding-top: 55px;
+    padding-bottom: 105px
 }

@@ -5,7 +5,7 @@
                 <div class="themo-action-text  hide-animation">
                     <span>Настало время выбора! Успейте купить сегодня!!!</span>
                 </div>
-                <a href="http://elari.kiev.ua/elariproducts/" class="btn btn-ghost   th-btn">В магазин</a>
+                <a href="<?=SITE_DIR ?>catalog/" class="btn btn-ghost   th-btn">В магазин</a>
             </div>
         </div>
     </section>
